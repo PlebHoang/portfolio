@@ -505,41 +505,41 @@
         /* Hierarchy Classes */
         .node-card.hero-tier {
             z-index: 600 !important;
-            width: 260px;
+            width: 340px;
             border-width: 2px;
             border-color: var(--hot-pink);
             box-shadow: 0 0 30px rgba(255, 0, 110, 0.3);
         }
 
         .node-card.hero-tier h3 {
-            font-size: 1.1rem;
+            font-size: 1.3rem;
             color: var(--hot-pink);
             text-shadow: 0 0 15px var(--hot-pink);
         }
 
         .node-card.support-tier {
             z-index: 500 !important;
-            width: 210px;
+            width: 280px;
             border-width: 1.5px;
             border-color: var(--cyan);
             box-shadow: 0 0 20px rgba(0, 245, 255, 0.2);
         }
 
         .node-card.support-tier h3 {
-            font-size: 0.95rem;
+            font-size: 1.1rem;
             color: var(--cyan);
             text-shadow: 0 0 10px var(--cyan);
         }
 
         .node-card.credential-tier {
             z-index: 390 !important;
-            width: 170px;
+            width: 220px;
             border-width: 1px;
             border-color: rgba(0, 102, 255, 0.5);
         }
 
         .node-card.credential-tier h3 {
-            font-size: 0.85rem;
+            font-size: 0.95rem;
             color: var(--text-dim);
         }
 
@@ -1365,8 +1365,9 @@
         }
 
         const deviceType = () => {
-            if (window.innerWidth < 751) return 'mobile';
-            if (window.innerWidth < 1007) return 'tablet';
+            const width = window.innerWidth;
+            if (width < 768) return 'mobile';
+            if (width < 1200) return 'tablet'; // Increased threshold for desktop web feel
             return 'desktop';
         };
 
@@ -1520,9 +1521,11 @@
                         const dy = n2.y - n1.y;
                         const dist = Math.sqrt(dx * dx + dy * dy) || 1;
 
-                        // Aggressive spacing for a "free" web feel
-                        let minDist = 450; // Increased base spacing
-                        if (n1.a.tier === 'hero-tier' || n2.a.tier === 'hero-tier') minDist = 650; // Increased hero zone
+                        // Adaptive spacing: use smaller minDist on smaller viewports to prevent crowding
+                        const baseDist = Math.min(400, Math.min(w, h) * 0.5);
+                        const heroDist = Math.min(550, Math.min(w, h) * 0.7);
+                        let minDist = baseDist;
+                        if (n1.a.tier === 'hero-tier' || n2.a.tier === 'hero-tier') minDist = heroDist;
 
                         if (dist < minDist) {
                             const angle = Math.atan2(dy, dx);
@@ -1548,13 +1551,14 @@
                 }
 
                 webNodes.forEach(n => {
-                    const marginX = 200;
-                    const marginTop = 280;    // Prevent overlapping RETURN_TO_CORE
-                    const marginBottom = 150; // Keep lower margin standard
-                    if (n.x < marginX) n.x = marginX;
-                    if (n.x > w - marginX) n.x = w - marginX;
-                    if (n.y < marginTop) n.y = marginTop;
-                    if (n.y > h - marginBottom) n.y = h - marginBottom;
+                    // Safe margins that scale down on smaller screens to allow nodes more room to breathe
+                    const mX = Math.min(200, w * 0.1);
+                    const mT = Math.min(220, h * 0.15);
+                    const mB = Math.min(150, h * 0.1);
+                    if (n.x < mX) n.x = mX;
+                    if (n.x > w - mX) n.x = w - mX;
+                    if (n.y < mT) n.y = mT;
+                    if (n.y > h - mB) n.y = h - mB;
                 });
             }
 
@@ -1564,9 +1568,9 @@
                 card.className = `node-card ${node.a.tier}`;
 
                 // Centering adjustment based on card width
-                let offsetX = 85;
-                if (node.a.tier === 'hero-tier') offsetX = 130;
-                else if (node.a.tier === 'support-tier') offsetX = 105;
+                let offsetX = 110;
+                if (node.a.tier === 'hero-tier') offsetX = 170;
+                else if (node.a.tier === 'support-tier') offsetX = 140;
 
                 card.style.left = `${node.x - offsetX}px`;
                 card.style.top = `${node.y - 40}px`;
