@@ -13,3 +13,5 @@ The five main projects are locked into a stable formation, but everything elseâ€
 Every time you load the page, a physics engine runs in the background to make sure nothing overlaps.
 
 It's my attempt to show how I think about engineering: you start with a chaotic, interesting problem, and you keep refining it until it's stable, readable, and gets the job done.
+
+Ps. Have fun finding out an easter egg ;)
