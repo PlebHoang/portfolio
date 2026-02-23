@@ -505,41 +505,41 @@
         /* Hierarchy Classes */
         .node-card.hero-tier {
             z-index: 600 !important;
-            width: 340px;
+            width: 280px;
             border-width: 2px;
             border-color: var(--hot-pink);
             box-shadow: 0 0 30px rgba(255, 0, 110, 0.3);
         }
 
         .node-card.hero-tier h3 {
-            font-size: 1.3rem;
+            font-size: 1.15rem;
             color: var(--hot-pink);
             text-shadow: 0 0 15px var(--hot-pink);
         }
 
         .node-card.support-tier {
             z-index: 500 !important;
-            width: 280px;
+            width: 230px;
             border-width: 1.5px;
             border-color: var(--cyan);
             box-shadow: 0 0 20px rgba(0, 245, 255, 0.2);
         }
 
         .node-card.support-tier h3 {
-            font-size: 1.1rem;
+            font-size: 1rem;
             color: var(--cyan);
             text-shadow: 0 0 10px var(--cyan);
         }
 
         .node-card.credential-tier {
             z-index: 390 !important;
-            width: 220px;
+            width: 180px;
             border-width: 1px;
             border-color: rgba(0, 102, 255, 0.5);
         }
 
         .node-card.credential-tier h3 {
-            font-size: 0.95rem;
+            font-size: 0.85rem;
             color: var(--text-dim);
         }
 
@@ -1521,8 +1521,8 @@
                         const dist = Math.sqrt(dx * dx + dy * dy) || 1;
 
                         // Aggressive spacing for a "free" web feel
-                        let minDist = 400; // Increased base spacing
-                        if (n1.a.tier === 'hero-tier' || n2.a.tier === 'hero-tier') minDist = 550; // Increased hero zone
+                        let minDist = 380; // Increased base spacing
+                        if (n1.a.tier === 'hero-tier' || n2.a.tier === 'hero-tier') minDist = 520; // Increased hero zone
 
                         if (dist < minDist) {
                             const angle = Math.atan2(dy, dx);
@@ -1549,7 +1549,7 @@
 
                 webNodes.forEach(n => {
                     const marginX = 200;
-                    const marginTop = 220;    // Prevent overlapping RETURN_TO_CORE
+                    const marginTop = 260;    // Prevent overlapping RETURN_TO_CORE
                     const marginBottom = 150; // Keep lower margin standard
                     if (n.x < marginX) n.x = marginX;
                     if (n.x > w - marginX) n.x = w - marginX;
@@ -1564,9 +1564,9 @@
                 card.className = `node-card ${node.a.tier}`;
 
                 // Centering adjustment based on card width
-                let offsetX = 110;
-                if (node.a.tier === 'hero-tier') offsetX = 170;
-                else if (node.a.tier === 'support-tier') offsetX = 140;
+                let offsetX = 90;
+                if (node.a.tier === 'hero-tier') offsetX = 140;
+                else if (node.a.tier === 'support-tier') offsetX = 115;
 
                 card.style.left = `${node.x - offsetX}px`;
                 card.style.top = `${node.y - 40}px`;
